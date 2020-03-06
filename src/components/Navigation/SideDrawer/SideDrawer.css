@@ -16,10 +16,15 @@
     display: none;
   }
 }
+
+.Logo {
+  height: 11%;
+}
 .Open {
-  transform: translateX(0);
+  /*transform: translateX(0);*/
 }
 
 .Close {
-  transform: translateX(-100%);
+  /*transform: translateX(-100%);*/
+  display: none;
 }
