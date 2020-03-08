@@ -17,7 +17,7 @@ const Burger = props => {
   const defaultText =
     transformedIngredients.length === 0 ? "Build your burger" : null;
 
-  console.log(transformedIngredients);
+  // console.log(transformedIngredients);
   return (
     <div className={classes.Burger}>
       <BurgerIngredient type="bread-top" />

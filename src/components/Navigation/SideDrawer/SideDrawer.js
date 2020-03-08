@@ -7,21 +7,15 @@ import Aux from "../../../hoc/Aux";
 import classes from "./SideDrawer.css";
 
 const SideDrawer = props => {
-  // ... css will go here
-  // let attachedClasses = [classes.SideDrawer, classes.Close];
-  // if (props.showBackdrop) {
-  //   attachedClasses = [classes.SideDrawer, classes.Open];
-  // }
   return (
     <Aux>
       <Backdrop
-        showBackdrop={props.showBackdrop}
-        clicked={props.toggleBackdrop}
+        showBackdrop={props.showSideDrawer}
+        clicked={props.toggleSideDrawer}
       />
       {props.showSideDrawer && (
         <div onClick={props.toggleSideDrawer} className={classes.SideDrawer}>
           <div className={classes.Logo}>
-            {" "}
             <Logo />
           </div>
 
@@ -35,4 +29,4 @@ const SideDrawer = props => {
 };
 
 export default SideDrawer;
-//if this sidedrawer prop is true - boolean true show the side drawer
+//if this sideDrawer prop is true - boolean true show the side drawer
