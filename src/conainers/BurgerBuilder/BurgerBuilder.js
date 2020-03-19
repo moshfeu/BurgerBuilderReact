@@ -6,6 +6,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../../src/axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 // a global constant
 const INGREDIENT_PRICES = {
@@ -102,7 +103,7 @@ class BurgerBuilder extends Component {
     };
     // data that gets sent to to server (2nd argument)
     axios
-      .post("/orders.json", order)
+      .post("", order)
       .then(response => {
         this.setState({ loading: false, orderInProgress: false });
         this.orderCancelHandler();
@@ -153,6 +154,6 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
 // We want this component to be a class component because we will eventually manage state in here.
 // we will pass this component to the
