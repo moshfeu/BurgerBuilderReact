@@ -7,7 +7,7 @@ const Modal = props => {
   const styles = props.show ? classes.modalVisible : classes.modalNotVisible;
   return (
     <Aux>
-      <Backdrop show={props.show} clicked={props.modalClosed}/>
+      <Backdrop showBackdrop={props.showBackdrop} show={props.show} clicked={props.modalClosed}/>
       <div className={styles}>{props.children}</div>
     </Aux>
   );
