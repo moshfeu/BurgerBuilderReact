@@ -92,33 +92,35 @@ class BurgerBuilder extends Component {
   };
   orderContinueHandler = () => {
     // alert("continue with order");
-    this.setState({ loading: true });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Angela Inniss",
-        address: {
-          street: "16 Test street",
-          postcode: "M43 567",
-          country: "England"
-        },
-        email: "test@test.com"
-      },
-      deliveryMethod: "fastest"
-    };
-    // data that gets sent to to server (2nd argument)
-    axios
-      .post("/orders.json", order)
-      .then(response => {
-        this.setState({ loading: false, orderInProgress: false });
-        this.orderCancelHandler();
-      })
-      .catch(error => {
-        this.setState({ loading: false, orderInProgress: false });
-        this.orderCancelHandler();
-      });
+    // this.setState({ loading: true });
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.totalPrice,
+    //   customer: {
+    //     name: "Angela Inniss",
+    //     address: {
+    //       street: "16 Test street",
+    //       postcode: "M43 567",
+    //       country: "England"
+    //     },
+    //     email: "test@test.com"
+    //   },
+    //   deliveryMethod: "fastest"
+    // };
+    // // data that gets sent to to server (2nd argument)
+    // axios
+    //   .post("/orders.json", order)
+    //   .then(response => {
+    //     this.setState({ loading: false, orderInProgress: false });
+    //     this.orderCancelHandler();
+    //   })
+    //   .catch(error => {
+    //     this.setState({ loading: false, orderInProgress: false });
+    //     this.orderCancelHandler();
+    //   });
+    this.props.history.push("/checkout");
   };
+
   render() {
     const disabledInfo = {
       ...this.state.ingredients
