@@ -91,34 +91,6 @@ class BurgerBuilder extends Component {
     this.setState({ orderInProgress: false });
   };
   orderContinueHandler = () => {
-    // alert("continue with order");
-    // this.setState({ loading: true });
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice,
-    //   customer: {
-    //     name: "Angela Inniss",
-    //     address: {
-    //       street: "16 Test street",
-    //       postcode: "M43 567",
-    //       country: "England"
-    //     },
-    //     email: "test@test.com"
-    //   },
-    //   deliveryMethod: "fastest"
-    // };
-    // // data that gets sent to to server (2nd argument)
-    // axios
-    //   .post("/orders.json", order)
-    //   .then(response => {
-    //     this.setState({ loading: false, orderInProgress: false });
-    //     this.orderCancelHandler();
-    //   })
-    //   .catch(error => {
-    //     this.setState({ loading: false, orderInProgress: false });
-    //     this.orderCancelHandler();
-    //   });
-
     // property name = property value
     // below is just taking the property key and setting it equal to property value
     //encode URI is just a helper method which allows us to have right format for the URL
@@ -126,6 +98,7 @@ class BurgerBuilder extends Component {
     for (let i in this.state.ingredients){
       queryParams.push(encodeURIComponent(i) + '='  + encodeURIComponent(this.state.ingredients[i]));
     }
+    queryParams.push('price=' + this.state.totalPrice)
     const queryString = queryParams.join('&');
     this.props.history.push({
       pathname: '/checkout',
