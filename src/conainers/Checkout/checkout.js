@@ -16,13 +16,14 @@ class Checkout extends Component {
     for (let param of query.entries()) {
       // ['salad', '1']
       // ingredients param element 1 i.e 'salad' should be equal to the  param element 2 the value which is '1'
-      if (param[0] === "price") {
+      if (param[0] === "price") { // see burgerBuilder line 101
         price = param[1];
       } else {
         ingredients[param[0]] = +param[1];
       } // +turns it into a number}
     }
-    this.setState({ ingredients: ingredients, totalPrice: price });
+    this.setState({ ingredients: ingredients, price: price });
+    console.log(price);
   }
 
   checkoutCancelledHandler = () => {
@@ -42,7 +43,13 @@ class Checkout extends Component {
         />
         <Route
           path={this.props.match.url + "/contact-data"}
-          render={(props) => <ContactData ingredients={this.state.ingredients}  price={this.state.price} {...props}/>}
+          render={props => (
+            <ContactData
+              ingredients={this.state.ingredients}
+              price={this.state.price}
+              {...props}
+            />
+          )}
         />
       </div>
     );

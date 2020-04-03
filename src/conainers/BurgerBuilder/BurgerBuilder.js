@@ -123,7 +123,7 @@ class BurgerBuilder extends Component {
     );
 
     if (this.state.ingredients) {
-      console.log(this.state.ingredients);
+      // console.log(this.state.ingredients);
 
       orderSummary = (
         <OrderSummary
