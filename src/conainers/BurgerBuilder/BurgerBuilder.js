@@ -118,8 +118,21 @@ class BurgerBuilder extends Component {
     //     this.setState({ loading: false, orderInProgress: false });
     //     this.orderCancelHandler();
     //   });
-    this.props.history.push("/checkout");
+
+    // property name = property value
+    // below is just taking the property key and setting it equal to property value
+    //encode URI is just a helper method which allows us to have right format for the URL
+    const queryParams = [];
+    for (let i in this.state.ingredients){
+      queryParams.push(encodeURIComponent(i) + '='  + encodeURIComponent(this.state.ingredients[i]));
+    }
+    const queryString = queryParams.join('&');
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString
+    });
   };
+  //end result /checkout?salad=1&meat=2&bacon=1 etc
 
   render() {
     const disabledInfo = {
