@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./input.css";
 
 const Input = props => {
-  //checking what our input is
+
   let inputElement = null;
 
   switch (props.inputtype) {
@@ -15,6 +15,7 @@ const Input = props => {
         />
       );
       break;
+
     case "textarea":
       inputElement = (
         <textarea
@@ -24,6 +25,18 @@ const Input = props => {
         />
       );
       break;
+    case "select":
+      inputElement = (
+        <select className={classes.InputElement} value={props.value}>
+          {props.elementConfig.options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      );
+      break;
+
     default:
       inputElement = (
         <input

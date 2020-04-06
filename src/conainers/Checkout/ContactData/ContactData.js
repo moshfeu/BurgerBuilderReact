@@ -9,59 +9,58 @@ class ContactData extends Component {
   state = {
     orderForm: {
       name: {
-        elementType: "input",
+        elementType: 'input',
         elementConfig: {
-          type: "text",
-          placeholder: "Your name"
+          type: 'text',
+          placeholder: 'Your Name'
         },
-        value: ""
+        value: ''
       },
       street: {
-        elementType: "input",
+        elementType: 'input',
         elementConfig: {
-          type: "text",
-          placeholder: "Your street"
+          type: 'text',
+          placeholder: 'Street'
         },
-        value: ""
+        value: ''
       },
-      postcode: {
-        elementType: "input",
+      zipCode: {
+        elementType: 'input',
         elementConfig: {
-          type: "text",
-          placeholder: "Your postcode"
+          type: 'text',
+          placeholder: 'ZIP Code'
         },
-        value: ""
+        value: ''
       },
       country: {
-        elementType: "input",
+        elementType: 'input',
         elementConfig: {
-          type: "text",
-          placeholder: "Your country"
+          type: 'text',
+          placeholder: 'Country'
         },
-        value: ""
+        value: ''
       },
       email: {
-        elementType: "input",
+        elementType: 'input',
         elementConfig: {
-          type: "text",
-          placeholder: "Your email"
+          type: 'email',
+          placeholder: 'Your E-Mail'
         },
-        value: ""
+        value: ''
       },
       deliveryMethod: {
-        elementType: "select",
+        elementType: 'select',
         elementConfig: {
           options: [
-            { label: "Fastest", value: "fastest" },
-            { label: "Cheapest", value: "cheapest" }
+            {value: 'fastest', label: 'Fastest'},
+            {value: 'cheapest', label: 'Cheapest'}
           ]
         },
-        value: ""
-      },
-
-      loading: false
-    }
-  };
+        value: ''
+      }
+    },
+    loading: false
+  }
 
   orderHandler = event => {
     event.preventDefault();
@@ -85,6 +84,7 @@ class ContactData extends Component {
   };
 
   render() {
+    // turning object into an array
     const formElementsArray = [];
     for (let key in this.state.orderForm) {
       formElementsArray.push({
@@ -96,7 +96,8 @@ class ContactData extends Component {
       <form>
         {formElementsArray.map(formElement => (
           <Input
-            key={formElement.config.id}
+            inputtype={formElement.config.elementType}
+            key={formElement.id}
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
