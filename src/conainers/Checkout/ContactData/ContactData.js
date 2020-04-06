@@ -9,65 +9,74 @@ class ContactData extends Component {
   state = {
     orderForm: {
       name: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'text',
-          placeholder: 'Your Name'
+          type: "text",
+          placeholder: "Your Name"
         },
-        value: ''
+        value: ""
       },
       street: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'text',
-          placeholder: 'Street'
+          type: "text",
+          placeholder: "Street"
         },
-        value: ''
+        value: ""
       },
       zipCode: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'text',
-          placeholder: 'ZIP Code'
+          type: "text",
+          placeholder: "ZIP Code"
         },
-        value: ''
+        value: ""
       },
       country: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'text',
-          placeholder: 'Country'
+          type: "text",
+          placeholder: "Country"
         },
-        value: ''
+        value: ""
       },
       email: {
-        elementType: 'input',
+        elementType: "input",
         elementConfig: {
-          type: 'email',
-          placeholder: 'Your E-Mail'
+          type: "email",
+          placeholder: "Your E-Mail"
         },
-        value: ''
+        value: ""
       },
       deliveryMethod: {
-        elementType: 'select',
+        elementType: "select",
         elementConfig: {
           options: [
-            {value: 'fastest', label: 'Fastest'},
-            {value: 'cheapest', label: 'Cheapest'}
+            { value: "fastest", label: "Fastest" },
+            { value: "cheapest", label: "Cheapest" }
           ]
         },
-        value: ''
+        value: ""
       }
     },
     loading: false
-  }
+  };
 
   orderHandler = event => {
     event.preventDefault();
     this.setState({ loading: true });
+    const formData = {};
+    // formElementIdentifier is one of email name zipCode etc from the state above
+    // loops through the state object. and for each object sets value to the value the user entered?
+    for (let formElementIdentifier in this.state.orderForm) {
+      formData[formElementIdentifier] = this.state.orderForm[
+        formElementIdentifier
+      ].value;
+    }
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price
+      price: this.props.price,
+      orderData: formData
     };
     // data that gets sent to to server (2nd argument)
     axios
@@ -83,6 +92,18 @@ class ContactData extends Component {
       });
   };
 
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedOrderForm = {
+      ...this.state.orderForm
+    };
+    const updatedFormElement = {
+      ...updatedOrderForm[inputIdentifier]
+    };
+    updatedFormElement.value = event.target.value;
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
+    this.setState({ orderForm: updatedOrderForm });
+    // console.log(event.target.value)
+  };
   render() {
     // turning object into an array
     const formElementsArray = [];
@@ -101,6 +122,7 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            changed={event => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
         <Button clicked={this.orderHandler} btnType="Success">
