@@ -32,7 +32,8 @@ const reducer = (state = initialState, action) => {
           //action.payload is what the user selects i.e salad then select name access value update value
         },
         totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload],
-        canPurchase: state.canPurchase
+        canPurchase: state.canPurchase,
+
       };
     case actionTypes.REMOVE_INGREDIENT:
       return {
