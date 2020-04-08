@@ -9,6 +9,7 @@ import axios from "../../../src/axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import * as actionTypes from "../../store/actions";
+import { updatePurchaseState } from "../../store/reducer";
 
 class BurgerBuilder extends Component {
   state = {
@@ -26,23 +27,6 @@ class BurgerBuilder extends Component {
     //     this.setState({ error: true });
     //   });
   }
-
-  // this method if to check if there are any ingredients in the burger so that the user can actually purchase the burger - check on line 36
-  updatePurchaseState(ingredients) {
-    const sum = Object.keys(ingredients)
-      .map(igKey => {
-        return ingredients[igKey]; //returns value for each key in the ingredients object e.g [0,2,3]
-      })
-      .reduce((sum, el) => {
-        return sum + el;
-      }, 0); // starting number of 0, 0 if no ingredients added
-    return sum > 0; // true/false
-  }
-  // turn object into an array
-  // create an array of string entries ['salad', 'bacon' 'cheese'] etc.
-  // add ingredient values together, starting value of this is 0.
-  //  if  the array has numbers in it i.e has ingredients in it then user can purchase the burger. If not they can't
-
   orderInProgressHandler = () => {
     this.setState({ orderInProgress: true });
   };
@@ -61,6 +45,7 @@ class BurgerBuilder extends Component {
     };
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
+      //if ingredient value is less than or equal to 0 make disabled info true and pas down to disabled prop in buildControls.
     }
 
     let orderSummary = null;
@@ -88,7 +73,7 @@ class BurgerBuilder extends Component {
             ingredientAdded={this.props.onIngredientAdded}
             ingredientRemoved={this.props.onIngredientRemoved}
             disabled={disabledInfo}
-            canPurchase={this.updatePurchaseState(this.props.ings)}
+            canPurchase={this.props.canPurchase}
             price={this.props.price}
             ordered={this.orderInProgressHandler}
           />
@@ -119,7 +104,6 @@ const mapStateToProps = state => {
     ings: state.ingredients,
     price: state.totalPrice,
     canPurchase: state.canPurchase
-
   };
 };
 
@@ -127,6 +111,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: ingNamePayload =>
       dispatch({ type: actionTypes.ADD_INGREDIENT, payload: ingNamePayload }),
+
     onIngredientRemoved: ingNamePayload =>
       dispatch({ type: actionTypes.REMOVE_INGREDIENT, payload: ingNamePayload })
   };

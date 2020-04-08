@@ -4,8 +4,8 @@ import classes from "./ContactData.css";
 import axios from "../../../../src/axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
-import {connect} from "react-redux";
-import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
+import { connect } from "react-redux";
+
 
 class ContactData extends Component {
   state = {
@@ -141,7 +141,7 @@ class ContactData extends Component {
 
     return isValid;
   }
-// ('Angela , name")
+  // ('Angela , name")
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedOrderForm = {
       ...this.state.orderForm
@@ -210,14 +210,12 @@ class ContactData extends Component {
       </div>
     );
   }
-
-
 }
+
 const mapStateToProps = state => {
-  // gets state we need from the reducer and stores it in props
   return {
     ings: state.ingredients,
     price: state.totalPrice
-  }
+  };
 };
 export default connect(mapStateToProps)(ContactData);

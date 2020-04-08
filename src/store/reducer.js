@@ -1,5 +1,4 @@
 import * as actionTypes from "./actions";
-import PropTypes from "react";
 
 const initialState = {
   ingredients: {
@@ -20,29 +19,46 @@ const INGREDIENT_PRICES = {
   bacon: 0.7
 };
 
+export const updatePurchaseState = ingredients => {
+  const sum = Object.keys(ingredients)
+    .map(igKey => {
+      return ingredients[igKey];
+    })
+    .reduce((sum, el) => {
+      return sum + el;
+    }, 0);
+  console.log(sum);
+  return sum > 0; // true/false
+};
+
 const reducer = (state = initialState, action) => {
-  // you always have to have a "type" property on your action, that's why we can access it below.
+  console.log(actionTypes.ADD_INGREDIENT, action);
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
-      return {
-        ...state,
-        ingredients: {
-          ...state.ingredients,
-          [action.payload]: state.ingredients[action.payload] + 1 // setting new value and assign to ingredient
-          //action.payload is what the user selects i.e salad then select name access value update value
-        },
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload],
-        canPurchase: state.canPurchase,
-
+      const newIngredientsAdd = {
+        ...state.ingredients,
+        [action.payload]: state.ingredients[action.payload] + 1 // salad: ingredients[salad] + 1
       };
-    case actionTypes.REMOVE_INGREDIENT:
+      console.log(newIngredientsAdd);
       return {
         ...state,
-        ingredients: {
-          ...state.ingredients,
-          [action.payload]: state.ingredients[action.payload] - 1
-        },
-        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.payload]
+        ingredients: newIngredientsAdd,
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload],
+        canPurchase: updatePurchaseState(newIngredientsAdd)
+      };
+
+    case actionTypes.REMOVE_INGREDIENT:
+      console.log(actionTypes.REMOVE_INGREDIENT, action);
+      const newIngredientsRemove = {
+        ...state.ingredients,
+        [action.payload]: state.ingredients[action.payload] - 1
+      }; // newIngredientsRemove constant is making sure we  grab  most up to date/latest ingredients in the burger
+      console.log(newIngredientsRemove);
+      return {
+        ...state,
+        ingredients: newIngredientsRemove,
+        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.payload],
+        canPurchase: updatePurchaseState(newIngredientsRemove)
       };
     default:
       return state;
@@ -52,3 +68,5 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 // ...state does not copy objects within objects you have to also always spread the state of
 // the inner objects too (see ADD_INGREDIENTS action
+
+//new ingredients copies the state as it is and removes the ingredients desired

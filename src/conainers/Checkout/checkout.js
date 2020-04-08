@@ -30,7 +30,6 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log()
   return {
     ings: state.ingredients
   }
