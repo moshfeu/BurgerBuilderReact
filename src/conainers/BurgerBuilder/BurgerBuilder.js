@@ -12,7 +12,6 @@ import * as actionTypes from "../../store/actions";
 
 class BurgerBuilder extends Component {
   state = {
-    canPurchase: false,
     orderInProgress: false,
     loading: false,
     error: false
@@ -37,7 +36,7 @@ class BurgerBuilder extends Component {
       .reduce((sum, el) => {
         return sum + el;
       }, 0); // starting number of 0, 0 if no ingredients added
-    this.setState({ canPurchase: sum > 0 });
+    return sum > 0; // true/false
   }
   // turn object into an array
   // create an array of string entries ['salad', 'bacon' 'cheese'] etc.
@@ -105,7 +104,7 @@ class BurgerBuilder extends Component {
             ingredientAdded={this.props.onIngredientAdded}
             ingredientRemoved={this.props.onIngredientRemoved}
             disabled={disabledInfo}
-            canPurchase={this.state.canPurchase}
+            canPurchase={this.updatePurchaseState(this.props.ings)}
             price={this.props.price}
             ordered={this.orderInProgressHandler}
           />
@@ -130,11 +129,13 @@ class BurgerBuilder extends Component {
     );
   }
 }
-// defines which props should hold which slice of the state from the reducer?!
+// defines which props should hold which slice of the state from the reducer
 const mapStateToProps = state => {
   return {
     ings: state.ingredients,
-    price: state.totalPrice
+    price: state.totalPrice,
+    canPurchase: state.canPurchase
+
   };
 };
 

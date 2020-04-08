@@ -5,10 +5,11 @@ const initialState = {
   ingredients: {
     salad: 0,
     bacon: 0,
-    cheese:0,
-    meat:0
+    cheese: 0,
+    meat: 0
   },
-  totalPrice: 0
+  totalPrice: 0,
+  canPurchase: false
 };
 
 // a global constant
@@ -25,20 +26,20 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ADD_INGREDIENT:
       return {
         ...state,
-      ingredients: {
-        ...state.ingredients,
-       [action.payload]: state.ingredients[action.payload] + 1 // setting new value and assign to ingredient
-        //action.payload is what the user selects i.e salad then select name access value update value
-
-      },
-      totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload]};
+        ingredients: {
+          ...state.ingredients,
+          [action.payload]: state.ingredients[action.payload] + 1 // setting new value and assign to ingredient
+          //action.payload is what the user selects i.e salad then select name access value update value
+        },
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload],
+        canPurchase: state.canPurchase
+      };
     case actionTypes.REMOVE_INGREDIENT:
-      return {...state,
+      return {
+        ...state,
         ingredients: {
           ...state.ingredients,
           [action.payload]: state.ingredients[action.payload] - 1
-
-
         },
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.payload]
       };
