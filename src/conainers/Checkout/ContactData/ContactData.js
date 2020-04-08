@@ -122,25 +122,24 @@ class ContactData extends Component {
       });
   };
 
-  //rules below is re fering to validations in the state
-  checkValidity(value, rules) {
+  checkValidity(value, validation) {
     let isValid = true;
 
-    if (rules.required) {
+    if (validation.required) {
       isValid = value.trim() !== "" && isValid;
     }
 
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
+    if (validation.minLength) {
+      isValid = value.length >= validation.minLength && isValid;
     }
 
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
+    if (validation.maxLength) {
+      isValid = value.length <= validation.maxLength && isValid;
     }
 
     return isValid;
   }
-
+// ('Angela , name")
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedOrderForm = {
       ...this.state.orderForm
