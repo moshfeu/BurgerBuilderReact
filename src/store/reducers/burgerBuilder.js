@@ -1,4 +1,4 @@
-import * as actionTypes from "./actions";
+import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   ingredients: {
@@ -27,19 +27,19 @@ export const updatePurchaseState = ingredients => {
     .reduce((sum, el) => {
       return sum + el;
     }, 0);
-  console.log(sum);
+  // console.log(sum);
   return sum > 0; // true/false
 };
 
 const reducer = (state = initialState, action) => {
-  console.log(actionTypes.ADD_INGREDIENT, action);
+  // console.log(actionTypes.ADD_INGREDIENT, action);
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
       const newIngredientsAdd = {
         ...state.ingredients,
-        [action.payload]: state.ingredients[action.payload] + 1 // salad: ingredients[salad] + 1
+        [action.ingredientName]: state.ingredients[action.ingredientName] + 1 // salad: ingredients[salad] + 1 action here is referring to the ADD_ingredient action that is passed into the reducer with the state line 34
       };
-      console.log(newIngredientsAdd);
+      // console.log(newIngredientsAdd);
       return {
         ...state,
         ingredients: newIngredientsAdd,
@@ -48,12 +48,12 @@ const reducer = (state = initialState, action) => {
       };
 
     case actionTypes.REMOVE_INGREDIENT:
-      console.log(actionTypes.REMOVE_INGREDIENT, action);
+      // console.log(actionTypes.REMOVE_INGREDIENT, action);
       const newIngredientsRemove = {
         ...state.ingredients,
-        [action.payload]: state.ingredients[action.payload] - 1
+        [action.ingredientName]: state.ingredients[action.ingredientName] - 1
       }; // newIngredientsRemove constant is making sure we  grab  most up to date/latest ingredients in the burger
-      console.log(newIngredientsRemove);
+      // console.log(newIngredientsRemove);
       return {
         ...state,
         ingredients: newIngredientsRemove,
@@ -70,3 +70,4 @@ export default reducer;
 // the inner objects too (see ADD_INGREDIENTS action
 
 //new ingredients copies the state as it is and removes the ingredients desired
+// we can always adapt or run some code before returning in the reducer
