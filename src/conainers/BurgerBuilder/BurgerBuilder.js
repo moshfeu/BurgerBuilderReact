@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
-
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-
 import axios from "../../../src/axios-orders";
 import * as burgerBuilderActions from "../../store/actions/index";
 
@@ -17,6 +16,7 @@ class BurgerBuilder extends Component {
     orderInProgress: false
   };
   componentDidMount() {
+    console.log("Test")
     this.props.onInitIngredients();
   }
   orderInProgressHandler = () => {
@@ -24,9 +24,11 @@ class BurgerBuilder extends Component {
   };
 
   orderCancelHandler = () => {
+    console.log("working?")
     this.setState({ orderInProgress: false });
   };
   orderContinueHandler = () => {
+    console.log("not-working?")
     this.props.history.push("/checkout");
   };
   //end result /checkout?salad=1&meat=2&bacon=1 etc
@@ -89,10 +91,10 @@ class BurgerBuilder extends Component {
 // defines which props should hold which slice of the state from the reducer
 const mapStateToProps = state => {
   return {
-    ings: state.ingredients,
-    price: state.totalPrice,
-    canPurchase: state.canPurchase,
-    error: state.error
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    canPurchase: state.burgerBuilder.canPurchase,
+    error: state.burgerBuilder.error
   };
 };
 
@@ -104,6 +106,7 @@ const mapDispatchToProps = dispatch => {
 
     onIngredientRemoved: ingNamePayload =>
       dispatch(burgerBuilderActions.removeIngredient(ingNamePayload)),
+
     onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
   };
 };
