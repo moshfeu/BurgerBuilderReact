@@ -17,7 +17,7 @@ class BurgerBuilder extends Component {
     orderInProgress: false
   };
   componentDidMount() {
-    console.log("Test")
+    console.log(this.props);
     this.props.onInitIngredients();
   }
   orderInProgressHandler = () => {
