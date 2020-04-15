@@ -8,8 +8,8 @@ const Order = props => {
       name: ingredientName,
       amount: props.ingredients[ingredientName]
     }); // value of ingredients
-    console.log(ingredientName);// name of ingredient Bacon, Salad etc.
-     console.log(props.ingredients[ingredientName])  //amount of each ingredient 1,2,3
+    // console.log(ingredientName); name of ingredient Bacon, Salad etc.
+    // console.log(props.ingredients[ingredientName]) amount of each ingredient 1,2,3
   }
 
   const ingredientOutput = ingredients.map(ig => {

@@ -68,10 +68,11 @@ export const fetchOrdersStart = () => {
 
 export const fetchOrders = () => {
   return dispatch => {
+    dispatch(fetchOrdersStart());
     axios
       .get("/orders.json")
       .then(res => {
-       console.log(res.data);
+        // console.log(res.data);
         const fetchedOrders = [];
         for (let key in res.data) {
           fetchedOrders.push({ ...res.data[key], id: key });
@@ -86,3 +87,5 @@ export const fetchOrders = () => {
 
 // Action creators using actions from actionTypes file.
 // We create action creators in order to execute a syncronous code.
+
+// logic in fetchOrders action takes data that comes back from DB. For each key 

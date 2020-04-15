@@ -15,9 +15,9 @@ export const removeIngredient = name => {
   };
 };
 
-export const setIngredients = ingredients => {
+export const loadIngredients = ingredients => {
   return {
-    type: actionTypes.RESET_INGREDIENTS,
+    type: actionTypes.LOAD_INGREDIENTS,
     startingIngredients: ingredients
   };
 };
@@ -36,7 +36,8 @@ export const initIngredients = () => {
       .get("https://my-burger-app-react-5c423.firebaseio.com/ingredients.json")
       .then(response => {
         console.log(response);
-        dispatch(setIngredients(response.data));
+        dispatch(loadIngredients(response.data));
+        console.log(response.data)
       })
       .catch(error => {
         dispatch(fetchIngredientsFailed());

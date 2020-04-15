@@ -165,6 +165,7 @@ class ContactData extends Component {
         id: key,
         config: this.state.orderForm[key]
       });
+      // shape passed in - {id: name , config: angela},{id: country , config: England},
     }
     let form = (
       <form>

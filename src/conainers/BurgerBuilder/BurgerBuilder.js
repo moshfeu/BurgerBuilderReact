@@ -10,7 +10,6 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import axios from "../../../src/axios-orders";
 import * as actions from "../../store/actions/index";
-// import * as actions from "../../store/actions";
 
 class BurgerBuilder extends Component {
   state = {
@@ -25,14 +24,13 @@ class BurgerBuilder extends Component {
   };
 
   orderCancelHandler = () => {
-    console.log("working?")
+    console.log("working?");
     this.setState({ orderInProgress: false });
   };
   orderContinueHandler = () => {
     this.props.onInitPurchase();
     this.props.history.push("/checkout");
   };
-  //end result /checkout?salad=1&meat=2&bacon=1 etc
 
   render() {
     const disabledInfo = {
@@ -40,7 +38,8 @@ class BurgerBuilder extends Component {
     };
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
-      //if ingredient value is less than or equal to 0 make disabled info true and pas down to disabled prop in buildControls.
+      // if ingredient value is less than or equal to 0 make disabled info true
+      // and pass down to disabled prop in buildControls.
     }
 
     let orderSummary = null;
@@ -51,8 +50,6 @@ class BurgerBuilder extends Component {
     );
 
     if (this.props.ings) {
-      // console.log(this.state.ingredients);
-
       orderSummary = (
         <OrderSummary
           orderCancelled={this.orderCancelHandler}
@@ -110,12 +107,9 @@ const mapDispatchToProps = dispatch => {
 
     onInitIngredients: () => dispatch(actions.initIngredients()),
 
-    onInitPurchase: () =>
-      dispatch(actions.purchaseInit())
+    onInitPurchase: () => dispatch(actions.purchaseInit())
   };
 };
-
-
 
 export default connect(
   mapStateToProps,

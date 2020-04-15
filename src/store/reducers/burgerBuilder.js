@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ADD_INGREDIENT:
       const newIngredientsAdd = {
         ...state.ingredients,
-        [action.ingredientName]: state.ingredients[action.ingredientName] + 1 // salad: ingredients[salad] + 1 action here is referring to the ADD_ingredient action that is passed into the reducer with the state line 34
+        [action.ingredientName]: state.ingredients[action.ingredientName] + 1 // salad: ingredients[salad] + 1 "action" here is referring to the ADD_ingredient action that is passed into the reducer with the state line 30
       };
       // console.log(newIngredientsAdd);
       return {
@@ -56,7 +56,7 @@ const reducer = (state = initialState, action) => {
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
         canPurchase: updatePurchaseState(newIngredientsRemove)
       };
-    case actionTypes.RESET_INGREDIENTS:
+    case actionTypes.LOAD_INGREDIENTS:
       return {
         ...state,
         ingredients: {

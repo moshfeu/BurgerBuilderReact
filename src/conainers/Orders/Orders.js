@@ -44,9 +44,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withErrorHandler(Orders, axios));
-
-// this file is pulling the orders from the DB
-// then looping through each order and storing the order key in an array called "FetchedOrders"
-// the orders state is the updated with fetchedOrders (See state).
-// in the return we then map over all the orders from the state (which is a list of keys)
-// this then gets passed to the Order component
