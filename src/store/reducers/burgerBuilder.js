@@ -56,7 +56,7 @@ const reducer = (state = initialState, action) => {
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
         canPurchase: updatePurchaseState(newIngredientsRemove)
       };
-    case actionTypes.SET_INGREDIENTS:
+    case actionTypes.RESET_INGREDIENTS:
       return {
         ...state,
         ingredients: {

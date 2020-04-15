@@ -12,7 +12,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         purchased: false
-
       };
     case actionTypes.PURCHASE_BURGER_START:
       return {
@@ -22,7 +21,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.PURCHASE_BURGER_SUCCESS:
       const newOrder = {
         ...action.orderData, // same orderData we post to the server
-        id: action.orderId, // id we get back from server
+        id: action.orderId // id we get back from server
       };
       return {
         ...state,
@@ -32,6 +31,23 @@ const reducer = (state = initialState, action) => {
       };
 
     case actionTypes.PURCHASE_BURGER_FAILED:
+      return {
+        ...state,
+        loading: false
+      };
+    case actionTypes.FETCH_ORDERS_START:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case actionTypes.FETCH_ORDERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        orders: action.orders
+      };
+    case actionTypes.FETCH_ORDERS_FAIL:
       return {
         ...state,
         loading: false

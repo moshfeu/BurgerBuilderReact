@@ -111,7 +111,7 @@ class ContactData extends Component {
       price: this.props.price,
       orderData: formData
     };
-    this.props.onOrderBurger(order.orderData);
+    this.props.onOrderBurger(order);
   };
 
   checkValidity(value, validation) {
