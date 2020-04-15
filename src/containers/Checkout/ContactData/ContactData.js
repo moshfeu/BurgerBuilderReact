@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/index";
 
-
 class ContactData extends Component {
   state = {
     orderForm: {
@@ -165,23 +164,26 @@ class ContactData extends Component {
         id: key,
         config: this.state.orderForm[key]
       });
-      // shape passed in - {id: name , config: angela},{id: country , config: England},
+      // shape passed in {id: name , config: angela},{id: country , config: England},
     }
     let form = (
       <form>
-        {formElementsArray.map(formElement => (
-          <Input
-            inputtype={formElement.config.elementType}
-            key={formElement.id}
-            elementType={formElement.config.elementType}
-            elementConfig={formElement.config.elementConfig}
-            value={formElement.config.value}
-            invalid={!formElement.config.valid}
-            shouldValidate={formElement.config.validation}
-            touched={formElement.config.touched}
-            changed={event => this.inputChangedHandler(event, formElement.id)}
-          />
-        ))}
+        {formElementsArray.map(formElement => {
+          console.log(formElementsArray);
+          return (
+            <Input
+              inputtype={formElement.config.elementType}
+              key={formElement.id}
+              elementType={formElement.config.elementType}
+              elementConfig={formElement.config.elementConfig}
+              value={formElement.config.value}
+              invalid={!formElement.config.valid}
+              shouldValidate={formElement.config.validation}
+              touched={formElement.config.touched}
+              changed={event => this.inputChangedHandler(event, formElement.id)}
+            />
+          );
+        })}
         <Button
           clicked={this.orderHandler}
           btnType="Success"
