@@ -9,7 +9,8 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import axios from "../../../src/axios-orders";
-import * as burgerBuilderActions from "../../store/actions/index";
+import * as actions from "../../store/actions/index";
+// import * as actions from "../../store/actions";
 
 class BurgerBuilder extends Component {
   state = {
@@ -28,7 +29,7 @@ class BurgerBuilder extends Component {
     this.setState({ orderInProgress: false });
   };
   orderContinueHandler = () => {
-    console.log("not-working?")
+    this.props.onInitPurchase();
     this.props.history.push("/checkout");
   };
   //end result /checkout?salad=1&meat=2&bacon=1 etc
@@ -102,14 +103,19 @@ const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: ingNamePayload =>
       // dispatching action (type)  and payload (payload)
-      dispatch(burgerBuilderActions.addIngredient(ingNamePayload)),
+      dispatch(actions.addIngredient(ingNamePayload)),
 
     onIngredientRemoved: ingNamePayload =>
-      dispatch(burgerBuilderActions.removeIngredient(ingNamePayload)),
+      dispatch(actions.removeIngredient(ingNamePayload)),
 
-    onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+    onInitIngredients: () => dispatch(actions.initIngredients()),
+
+    onInitPurchase: () =>
+      dispatch(actions.purchaseInit())
   };
 };
+
+
 
 export default connect(
   mapStateToProps,
