@@ -79,8 +79,8 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+
 // ...state does not copy objects within objects you have to also always spread the state of
 // the inner objects too (see ADD_INGREDIENTS action
-
 //new ingredients copies the state as it is and removes the ingredients desired
 // we can always adapt or run some code before returning in the reducer
