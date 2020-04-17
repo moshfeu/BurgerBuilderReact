@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import * as actions from "../../store/actions/index";
-import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import classes from "./Auth.css";
-import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Auth extends Component {
   state = {
@@ -120,15 +121,21 @@ class Auth extends Component {
       form = <Spinner />;
     }
 
-   let errorMessage = null;
+    let errorMessage = null;
 
     if (this.props.error) {
       errorMessage = (
         <p>{this.props.error.message}</p> // error from firebase which comes bk automatically
-      )
+      );
+    }
+
+    let isLoggedIn = null;
+    if (this.props.isLoggedIn) {
+      isLoggedIn = <Redirect to="/" />;
     }
     return (
       <div className={classes.Auth}>
+        {isLoggedIn}
         {errorMessage}
         <form onSubmit={this.handleSubmit}>
           {form}
@@ -142,12 +149,11 @@ class Auth extends Component {
   }
 }
 
-
-
 const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error
+    error: state.auth.error,
+    isLoggedIn: state.auth.token !== null
   };
 };
 const mapDispatchToProps = dispatch => {

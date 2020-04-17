@@ -23,8 +23,12 @@ const BuildControls = props => {
           disabled={props.disabled[ctrl.type]}
         />
       ))}
-      <button onClick={props.ordered} className={classes.OrderButton} disabled={!props.canPurchase}>
-        ORDER NOW
+      <button
+        onClick={props.ordered}
+        className={classes.OrderButton}
+        disabled={!props.canPurchase}
+      >
+        {props.userLoggedIn ? "ORDER NOW" : "SIGN UP TO ORDER"}
       </button>
     </div>
   );
@@ -32,4 +36,4 @@ const BuildControls = props => {
 
 export default BuildControls;
 
-//loop through all controls and render a build control for each of them.
+// loop through all controls and render a build control for each of them.

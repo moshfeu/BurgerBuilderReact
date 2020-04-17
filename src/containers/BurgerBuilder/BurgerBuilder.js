@@ -20,7 +20,11 @@ class BurgerBuilder extends Component {
     this.props.onInitIngredients();
   }
   orderInProgressHandler = () => {
-    this.setState({ orderInProgress: true });
+    if (this.props.isLoggedIn) {
+      this.setState({ orderInProgress: true });
+    } else {
+      this.props.history.push("/auth"); // history comes from react router dom
+    }
   };
 
   orderCancelHandler = () => {
@@ -68,6 +72,7 @@ class BurgerBuilder extends Component {
             canPurchase={this.props.canPurchase}
             price={this.props.price}
             ordered={this.orderInProgressHandler}
+            userLoggedIn={this.props.isLoggedIn}
           />
         </Aux>
       );
@@ -92,7 +97,8 @@ const mapStateToProps = state => {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
     canPurchase: state.burgerBuilder.canPurchase,
-    error: state.burgerBuilder.error
+    error: state.burgerBuilder.error,
+    isLoggedIn: state.auth.token !== null
   };
 };
 
