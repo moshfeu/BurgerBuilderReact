@@ -26,7 +26,7 @@ export const logout = () => {
     type: actionTypes.AUTH_LOGOUT
   };
 };
-export const checkAuthTimeout = (expirationTime) => {
+export const checkAuthTimeout = expirationTime => {
   return dispatch => {
     setTimeout(() => {
       dispatch(logout());
@@ -59,6 +59,13 @@ export const auth = (email, password, isSignUp) => {
         console.log(err);
         dispatch(authFail(err.response.data.error));
       });
+  };
+};
+
+export const setAuthRedirectPath = (path) => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path
   };
 };
 // token = like a user idToken which comes from BE to track a user around the app. Expires after 1 hr.

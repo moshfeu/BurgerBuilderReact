@@ -4,7 +4,8 @@ const initialState = {
   ingredients: null,
   totalPrice: 0,
   canPurchase: false,
-  error: false
+  error: false,
+  building: false
 };
 
 // a global constant
@@ -40,7 +41,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         ingredients: newIngredientsAdd,
         totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
-        canPurchase: updatePurchaseState(newIngredientsAdd)
+        canPurchase: updatePurchaseState(newIngredientsAdd),
+        building: true
       };
 
     case actionTypes.REMOVE_INGREDIENT:
@@ -54,7 +56,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         ingredients: newIngredientsRemove,
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
-        canPurchase: updatePurchaseState(newIngredientsRemove)
+        canPurchase: updatePurchaseState(newIngredientsRemove),
+        building: true
       };
     case actionTypes.LOAD_INGREDIENTS:
       return {
@@ -66,7 +69,8 @@ const reducer = (state = initialState, action) => {
           meat: action.startingIngredients.meat
         },
         totalPrice: 0,
-        error: false
+        error: false,
+        building: false
       };
     case actionTypes.FETCH_INGREDIENTS_FAILED:
       return {

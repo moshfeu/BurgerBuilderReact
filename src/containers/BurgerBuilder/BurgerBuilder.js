@@ -10,6 +10,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import axios from "../../../src/axios-orders";
 import * as actions from "../../store/actions/index";
+import {setAuthRedirectPath} from "../../store/actions/index";
 
 class BurgerBuilder extends Component {
   state = {
@@ -23,6 +24,7 @@ class BurgerBuilder extends Component {
     if (this.props.isLoggedIn) {
       this.setState({ orderInProgress: true });
     } else {
+      this.props.onSetAuthRedirectPath('/checkout')
       this.props.history.push("/auth"); // history comes from react router dom
     }
   };
@@ -113,7 +115,9 @@ const mapDispatchToProps = dispatch => {
 
     onInitIngredients: () => dispatch(actions.initIngredients()),
 
-    onInitPurchase: () => dispatch(actions.purchaseInit())
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
+
+    onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
   };
 };
 
