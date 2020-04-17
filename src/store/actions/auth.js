@@ -9,7 +9,7 @@ export const authStart = () => {
 export const authSuccess = (token, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    idToken: token,
+    idToken: token, // a payload from the BE response.data
     userId: userId
   };
 };
@@ -18,6 +18,19 @@ export const authFail = error => {
   return {
     type: actionTypes.AUTH_FAIL,
     error: error
+  };
+};
+
+export const logout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
+};
+export const checkAuthTimeout = (expirationTime) => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime * 1000);
   };
 };
 
@@ -39,7 +52,8 @@ export const auth = (email, password, isSignUp) => {
       .post(url, authData)
       .then(response => {
         console.log(response);
-        dispatch(authSuccess(response.data.idToken,response.data.userId));
+        dispatch(authSuccess(response.data.idToken, response.data.userId));
+        dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch(err => {
         console.log(err);
@@ -47,3 +61,8 @@ export const auth = (email, password, isSignUp) => {
       });
   };
 };
+// token = like a user idToken which comes from BE to track a user around the app. Expires after 1 hr.
+// token comes back from the api request (idToken) when a user is successfully logged in / signed up.
+// this token is stored in the auth state where it can be used and called from different places in the app
+// e.g. when we fetch orders on the Orders page we use the token, which is stored in the auth reducer
+//e.g when we purchase a burger on the Contact data form we use the token which is stored in the auth reducer

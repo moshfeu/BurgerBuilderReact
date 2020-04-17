@@ -25,14 +25,14 @@ export const purchaseBurgerStart = () => {
 
 // asyncronous action creator the action we dispatch once we click the order button
 
-export const purchaseBurger = orderData => {
-  console.log(orderData);
+export const purchaseBurger = (orderData, token) => {
+  // console.log(orderData);
   return dispatch => {
     dispatch(purchaseBurgerStart());
     axios
-      .post("/orders.json", orderData)
+      .post("/orders.json?auth=" + token, orderData)
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         dispatch(purchaseBurgerSuccess(response.data.name, orderData));
       })
       .catch(error => {
@@ -66,11 +66,11 @@ export const fetchOrdersStart = () => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = token => {
   return dispatch => {
     dispatch(fetchOrdersStart());
     axios
-      .get("/orders.json")
+      .get("/orders.json?auth=" + token)
       .then(res => {
         // console.log(res.data);
         const fetchedOrders = [];
@@ -88,4 +88,4 @@ export const fetchOrders = () => {
 // Action creators using actions from actionTypes file.
 // We create action creators in order to execute a syncronous code.
 
-// logic in fetchOrders action takes data that comes back from DB. For each key 
+// logic in fetchOrders action takes data that comes back from DB. For each key

@@ -4,7 +4,8 @@ const initialState = {
   token: null,
   userId: null,
   error: null,
-  loading: false
+  loading: false,
+  expiresIn: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,6 +29,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: action.error,
         loading: false
+      };
+    case actionTypes.AUTH_LOGOUT:
+      return {
+        ...state,
+        token: null,
+        userId: null
       };
     default:
       return state;
