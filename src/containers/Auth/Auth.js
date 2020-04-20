@@ -42,6 +42,8 @@ class Auth extends Component {
     },
     isSignUp: true
   };
+  // in componentDidMount - if we reach this auth page whilst not building a burger redirect user to correct page.
+  //this makes sure whenever we reach the auth page without building a burger we are redirected home
   componentDidMount() {
     if (!this.props.buildingBurger && this.props.authRedirectPath !== "/") {
       this.props.onSetAuthRedirectPath();
@@ -136,7 +138,7 @@ class Auth extends Component {
 
     let isLoggedIn = null;
     if (this.props.isLoggedIn) {
-      isLoggedIn = <Redirect to={this.props.authRedirectPath} />;
+      isLoggedIn = <Redirect to={this.props.authRedirectPath} />; // if logged in redirect to home '/'
     }
     return (
       <div className={classes.Auth}>
@@ -171,3 +173,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
+
