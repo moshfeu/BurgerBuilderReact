@@ -5,6 +5,7 @@ import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import * as actions from "../../store/actions/index";
 import { Redirect } from "react-router-dom";
+import {checkValidity} from "../../shared/validation";
 
 import classes from "./Auth.css";
 
@@ -50,23 +51,6 @@ class Auth extends Component {
     }
   }
 
-  checkValidity(value, validation) {
-    let isValid = true;
-
-    if (validation.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (validation.minLength) {
-      isValid = value.length >= validation.minLength && isValid;
-    }
-
-    if (validation.maxLength) {
-      isValid = value.length <= validation.maxLength && isValid;
-    }
-
-    return isValid;
-  }
 
   inputChangedHandler = (event, controlName) => {
     const updatedControls = {
@@ -74,7 +58,7 @@ class Auth extends Component {
       [controlName]: {
         ...this.state.controls[controlName],
         value: event.target.value,
-        valid: this.checkValidity(
+        valid: checkValidity(
           event.target.value,
           this.state.controls[controlName].validation
         ),
