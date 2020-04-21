@@ -8,13 +8,18 @@ import classes from "./SideDrawer.css";
 
 const SideDrawer = props => {
   return (
-    <Aux>
+    <Aux classname={classes.SideDrawer}>
       <Backdrop
         showBackdrop={props.showSideDrawer}
         clicked={props.toggleSideDrawer}
       />
       {props.showSideDrawer && (
-        <div onClick={props.toggleSideDrawer} className={classes.SideDrawer}>
+        <div
+          onClick={props.toggleSideDrawer}
+          className={
+            props.toggleSideDrawer ? classes.SideDrawerOpen : classes.SideDrawer
+          }
+        >
           <div className={classes.Logo}>
             <Logo />
           </div>
@@ -29,4 +34,6 @@ const SideDrawer = props => {
 };
 
 export default SideDrawer;
+
 //if this sideDrawer prop is true - boolean true show the side drawer
+// if i click on the side drawer

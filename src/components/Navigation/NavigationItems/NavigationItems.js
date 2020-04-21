@@ -5,7 +5,7 @@ import classes from "./NavigationItems.css";
 
 const NavigationItems = props => {
   const userLoggedIn = useSelector(state => state.auth.token);
-  console.log(userLoggedIn);
+  // console.log(userLoggedIn);
   return (
     <ul className={classes.NavigationItems}>
       <NavigationItem link="/" exact>
