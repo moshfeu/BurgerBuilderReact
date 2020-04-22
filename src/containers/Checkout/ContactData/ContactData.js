@@ -7,7 +7,7 @@ import Input from "../../../components/UI/Input/Input";
 import { connect } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/index";
-import {checkValidity} from "../../../shared/validation";
+import { checkValidity } from "../../../shared/validation";
 
 class ContactData extends Component {
   state = {
@@ -47,8 +47,8 @@ class ContactData extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 6,
-          maxLength: 7
+          minLength: 5,
+          maxLength: 8
         },
         valid: false,
         touched: false
