@@ -5,7 +5,7 @@ import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import * as actions from "../../store/actions/index";
 import { Redirect } from "react-router-dom";
-import {checkValidity} from "../../shared/validation";
+import { checkValidity } from "../../shared/validation";
 
 import classes from "./Auth.css";
 
@@ -50,7 +50,6 @@ class Auth extends Component {
       this.props.onSetAuthRedirectPath();
     }
   }
-
 
   inputChangedHandler = (event, controlName) => {
     const updatedControls = {
@@ -128,12 +127,16 @@ class Auth extends Component {
       <div className={classes.Auth}>
         {isLoggedIn}
         {errorMessage}
+        <p>
+          <b>Sign up to create a burger</b>
+        </p>
         <form onSubmit={this.handleSubmit}>
           {form}
           <Button btnType="Success">SUBMIT</Button>
         </form>
+        <p className={classes.subText}>Already have an account? Switch to sign in below:</p>
         <Button clicked={this.switchAuthModeHandler} btnType="Danger">
-          SWITCH TO {this.state.isSignUp ? "SIGN IN" : "SIGN UP"}
+          {this.state.isSignUp ? "SIGN IN" : "SIGN UP"}
         </Button>
       </div>
     );
@@ -157,4 +160,3 @@ const mapDispatchToProps = dispatch => {
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
-

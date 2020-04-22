@@ -7,7 +7,11 @@
     padding: 10px;
     box-sizing: border-box;
 }
-
+.subText {
+    font-size: 12px;
+    font-style: italic;
+    margin:0;
+}
 
 @media (min-width: 600px) {
     .Auth {
