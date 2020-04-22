@@ -59,7 +59,7 @@ class ContactData extends Component {
           type: "text",
           placeholder: "Country"
         },
-        value: "",
+        value: "England, UK",
         validation: {
           required: true
         },
