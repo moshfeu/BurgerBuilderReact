@@ -1,26 +1,37 @@
 import React from "react";
+
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import NavigationItems from "../NavigationItems";
 import NavigationItem from "./NavigationItem";
+import NavigationItems from "../NavigationItems";
+
+
 
 configure({ adapter: new Adapter() });
 
-describe("NavigationItem test", () => {
-  it("should only show orders navigation when user is logged in", () => {
-    const component = shallow(<NavigationItems/>
-    );
+describe("NavigationItems", () => {
+  let wrapper;
 
-    expect(component.find(NavigationItem).tohaveLength(2));
+  beforeEach(() => {
+    wrapper = shallow(<NavigationItems/>);
+  });
 
+  it("should render two NavigationItem  elements if not authenticated", () => {
+    expect(wrapper.find(NavigationItem)).toHaveLength(2);
+  });
 
+  it("should render three NavigationItem  elements if authenticated", () => {
+    // wrapper = shallow(<NavigationItems isAuthenticated />);
+    wrapper.setProps({ isLoggedIn: true });
+    expect(wrapper.find(NavigationItem)).toHaveLength(3);
+  });
 
+  it("should an exact logout button", () => {
+    wrapper.setProps({ isLoggedIn: true });
+    expect(
+      wrapper.contains(<NavigationItem link="/logout">Logout</NavigationItem>)
+    ).toEqual(true);
   });
 });
 
-//arrange.
-//act
-//assert
-
-// "shallow" renders component with all the content but the content isn't deeply rendered
-// the nested components are only rendered as placeholders, the content of a component is not rendered
+// tests don't run - need provider and to fix because I used UseState in my component

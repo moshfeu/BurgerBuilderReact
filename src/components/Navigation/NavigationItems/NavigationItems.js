@@ -17,7 +17,7 @@ const NavigationItems = props => {
       {userLoggedIn ? (
         <NavigationItem link="/logout">Logout</NavigationItem>
       ) : (
-        <NavigationItem link="/auth">Authentication</NavigationItem>
+        <NavigationItem link="/auth">Login</NavigationItem>
       )}
     </ul>
   );
