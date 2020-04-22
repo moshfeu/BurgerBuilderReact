@@ -38,5 +38,5 @@ class SideDrawer extends Component {
 
 export default SideDrawer;
 
-//if this sideDrawer prop is true - boolean true show the side drawer
-// if i click on the side drawer
+// if this sideDrawer prop is true - boolean true show the side drawer
+// if I click on the side drawer
