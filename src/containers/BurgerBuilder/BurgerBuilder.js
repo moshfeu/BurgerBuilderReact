@@ -13,7 +13,8 @@ import * as actions from "../../store/actions/index";
 
 export class BurgerBuilder extends Component {
   state = {
-    orderInProgress: false
+    orderInProgress: false,
+    showBackDrop: false
   };
   componentDidMount() {
     // console.log(this.props);
@@ -22,8 +23,9 @@ export class BurgerBuilder extends Component {
   orderInProgressHandler = () => {
     if (this.props.isLoggedIn) {
       this.setState({ orderInProgress: true });
+      this.setState({ showBackDrop: true });
     } else {
-      this.props.onSetAuthRedirectPath('/checkout')
+      this.props.onSetAuthRedirectPath("/checkout");
       this.props.history.push("/auth"); // history comes from react router dom
     }
   };
@@ -82,6 +84,7 @@ export class BurgerBuilder extends Component {
     return (
       <Aux>
         <Modal
+          showBackdrop={this.state.showBackDrop}
           show={this.state.orderInProgress}
           modalClosed={this.orderCancelHandler}
         >
@@ -116,7 +119,7 @@ const mapDispatchToProps = dispatch => {
 
     onInitPurchase: () => dispatch(actions.purchaseInit()),
 
-    onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
+    onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
   };
 };
 

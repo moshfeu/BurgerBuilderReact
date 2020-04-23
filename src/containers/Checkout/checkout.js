@@ -5,19 +5,28 @@ import ContactData from "./ContactData/ContactData";
 import { connect } from "react-redux";
 
 class Checkout extends Component {
+  state = {
+    showCheckoutMessage: true
+  };
+
   checkoutCancelledHandler = () => {
     this.props.history.goBack();
   };
   checkoutContinuedHandler = () => {
     this.props.history.replace("/checkout/contact-data");
+    this.setState({ showCheckoutMessage: false });
   };
 
   render() {
     let summary = <Redirect to="/" />;
+
+
     if (this.props.ings) {
       const purchasedRedirect = this.props.purchased ? (
         <Redirect to="/" />
       ) : null;
+
+
       summary = (
         <div>
           {purchasedRedirect}
@@ -25,6 +34,7 @@ class Checkout extends Component {
             ingredients={this.props.ings}
             checkoutCancelled={this.checkoutCancelledHandler}
             checkoutContinued={this.checkoutContinuedHandler}
+            showCheckoutMessage={this.state.showCheckoutMessage}
           />
           <Route
             path={this.props.match.url + "/contact-data"}
@@ -33,6 +43,7 @@ class Checkout extends Component {
         </div>
       );
     }
+
     return summary;
   }
 }
