@@ -72,7 +72,7 @@ class ContactData extends Component {
           type: "email",
           placeholder: "Your E-Mail"
         },
-        value: "",
+        value: this.props.email,
         validation: {
           required: true
         },
@@ -196,7 +196,9 @@ const mapStateToProps = state => {
     price: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
     token: state.auth.token,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    email: state.auth.email,
+    isLoggedIn: state.auth.token !== null
   };
 };
 
@@ -211,3 +213,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withErrorHandler(ContactData, axios));
+

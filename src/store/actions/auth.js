@@ -6,11 +6,12 @@ export const authStart = () => {
     type: actionTypes.AUTH_START
   };
 };
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId, email) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token, // a payload from the BE response.data
-    userId: userId
+    userId: userId,
+    email: email // payload from user input - find in response.data.email
   };
 };
 
@@ -60,8 +61,8 @@ export const auth = (email, password, isSignUp) => {
         );
         localStorage.setItem("token", response.data.idToken);
         localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem('userId',response.data.localId);
-        dispatch(authSuccess(response.data.idToken, response.data.localId));
+        localStorage.setItem('userId',response.data.localId); //check if need to add email to local storage
+        dispatch(authSuccess(response.data.idToken, response.data.localId, response.data.email));
         console.log(response.data);
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })

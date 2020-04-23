@@ -43,6 +43,7 @@ class Auth extends Component {
     },
     isSignUp: true
   };
+
   // in componentDidMount - if we reach this auth page whilst not building a burger redirect user to correct page.
   //this makes sure whenever we reach the auth page without building a burger we are redirected home
   componentDidMount() {
@@ -107,6 +108,11 @@ class Auth extends Component {
         changed={event => this.inputChangedHandler(event, formElement.id)}
       />
     ));
+    // const emailValue = this.state.controls.email.value;
+    // console.log(emailValue);
+
+    const emailValue = formElementsArray.id
+
     if (this.props.loading) {
       form = <Spinner />;
     }
@@ -134,7 +140,9 @@ class Auth extends Component {
           {form}
           <Button btnType="Success">SUBMIT</Button>
         </form>
-        <p className={classes.subText}>Already have an account? Switch to sign in below:</p>
+        <p className={classes.subText}>
+          Already have an account? Switch to sign in below:
+        </p>
         <Button clicked={this.switchAuthModeHandler} btnType="Danger">
           {this.state.isSignUp ? "SIGN IN" : "SIGN UP"}
         </Button>

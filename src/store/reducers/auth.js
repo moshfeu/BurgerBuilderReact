@@ -7,7 +7,8 @@ export const initialState = {
   error: null,
   loading: false,
   expiresIn: null,
-  authRedirectPath: "/"
+  authRedirectPath: "/",
+  email: ""
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,7 +25,8 @@ const reducer = (state = initialState, action) => {
         token: action.idToken,
         userId: action.userId,
         error: null,
-        loading: false
+        loading: false,
+        email: action.email
       };
     case actionTypes.AUTH_FAIL:
       return {
