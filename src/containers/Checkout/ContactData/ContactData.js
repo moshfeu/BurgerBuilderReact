@@ -63,7 +63,7 @@ class ContactData extends Component {
         validation: {
           required: true
         },
-        valid: false,
+        valid: true,
         touched: false
       },
       email: {
@@ -76,7 +76,7 @@ class ContactData extends Component {
         validation: {
           required: true
         },
-        valid: false,
+        valid: this.props.email ? true : false,
         touched: false
       },
       deliveryMethod: {
@@ -110,7 +110,8 @@ class ContactData extends Component {
       ingredients: this.props.ings,
       price: this.props.price,
       orderData: formData,
-      userId: this.props.userId
+      userId: this.props.userId,
+      email: this.props.email
     };
     this.props.onOrderBurger(order, this.props.token);
   };
@@ -121,25 +122,25 @@ class ContactData extends Component {
       ...this.state.orderForm
     };
     const updatedFormElement = {
-      ...updatedOrderForm[inputIdentifier]
+      ...updatedOrderForm[inputIdentifier] // updatedOrderForm[country]   returns value which is an object
     };
-    updatedFormElement.value = event.target.value;
+    updatedFormElement.value = event.target.value; // whatever the user types in
+
     updatedFormElement.valid = checkValidity(
+      //  pass in what user types "angela" and validation "true"
       updatedFormElement.value,
       updatedFormElement.validation
     );
-    updatedFormElement.touched = true;
-    updatedOrderForm[inputIdentifier] = updatedFormElement;
 
-    //checking if whole form is valid, for each input field in the order form check if
+    updatedFormElement.touched = true; // ensures that the user types something in the input field for the styles
+    updatedOrderForm[inputIdentifier] = updatedFormElement; // takes all order form looks at specific field "name" and updates value for that field "angela"
+    // checking if whole form is valid, for each input field in the order form check if
     // set form is valid to the "valid" value for each given input.
     let formIsValid = true;
     for (let inputIdentifier in updatedOrderForm) {
       formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
     }
-    // console.log(updatedFormElement);
     this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
-    // console.log(event.target.value)
   };
   render() {
     // turning object into an array
@@ -154,7 +155,6 @@ class ContactData extends Component {
     let form = (
       <form>
         {formElementsArray.map(formElement => {
-          // console.log(formElementsArray);
           return (
             <Input
               inputtype={formElement.config.elementType}
@@ -213,4 +213,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withErrorHandler(ContactData, axios));
-
