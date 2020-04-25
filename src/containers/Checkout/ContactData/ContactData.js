@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/index";
 import { checkValidity } from "../../../shared/validation";
+import Modal from "../../../components/UI/Modal/Modal";
+import Aux from "../../../hoc/Aux";
 
 class ContactData extends Component {
   state = {
@@ -72,7 +74,7 @@ class ContactData extends Component {
           type: "email",
           placeholder: "Your E-Mail"
         },
-        value: this.props.email,
+        value: this.props.email || '',
         validation: {
           required: true
         },
@@ -92,7 +94,9 @@ class ContactData extends Component {
         valid: true
       }
     },
-    formIsValid: false
+    formIsValid: false,
+    showBackDrop: false,
+    orderComplete: false
   };
 
   orderHandler = event => {
@@ -113,6 +117,9 @@ class ContactData extends Component {
       userId: this.props.userId,
       email: this.props.email
     };
+    this.setState({ showBackDrop: true });
+    this.setState({ orderComplete: true });
+    console.log(this.state.orderComplete);
     this.props.onOrderBurger(order, this.props.token);
   };
 
@@ -182,10 +189,18 @@ class ContactData extends Component {
       form = <Spinner />;
     }
     return (
-      <div className={classes.ContactData}>
-        <h4>Enter Contact Information </h4>
-        {form}
-      </div>
+      <Aux>
+        <div className={classes.ContactData}>
+          <h4>Enter Contact Information </h4>
+          {form}
+        </div>
+        <Modal
+          show={this.state.orderComplete}
+          showBackDrop={this.state.showBackDrop}
+        >
+          Thank you for your order!{" "}
+        </Modal>
+      </Aux>
     );
   }
 }

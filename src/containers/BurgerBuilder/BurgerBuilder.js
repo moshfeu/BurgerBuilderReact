@@ -31,7 +31,6 @@ export class BurgerBuilder extends Component {
   };
 
   orderCancelHandler = () => {
-    console.log("working?");
     this.setState({ orderInProgress: false });
   };
   orderContinueHandler = () => {
