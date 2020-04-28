@@ -74,7 +74,7 @@ class ContactData extends Component {
           type: "email",
           placeholder: "Your E-Mail"
         },
-        value: this.props.email || '',
+        value: this.props.email || "",
         validation: {
           required: true
         },
@@ -96,7 +96,7 @@ class ContactData extends Component {
     },
     formIsValid: false,
     showBackDrop: false,
-    orderComplete: false
+    orderComplete: false,
   };
 
   orderHandler = event => {
@@ -117,10 +117,8 @@ class ContactData extends Component {
       userId: this.props.userId,
       email: this.props.email
     };
-    this.setState({ showBackDrop: true });
-    this.setState({ orderComplete: true });
-    console.log(this.state.orderComplete);
     this.props.onOrderBurger(order, this.props.token);
+    // keep email there for user
   };
 
   // ('Angela , name")
@@ -138,7 +136,6 @@ class ContactData extends Component {
       updatedFormElement.value,
       updatedFormElement.validation
     );
-
     updatedFormElement.touched = true; // ensures that the user types something in the input field for the styles
     updatedOrderForm[inputIdentifier] = updatedFormElement; // takes all order form looks at specific field "name" and updates value for that field "angela"
     // checking if whole form is valid, for each input field in the order form check if
@@ -149,6 +146,7 @@ class ContactData extends Component {
     }
     this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
   };
+
   render() {
     // turning object into an array
     const formElementsArray = [];
@@ -176,6 +174,7 @@ class ContactData extends Component {
             />
           );
         })}
+
         <Button
           clicked={this.orderHandler}
           btnType="Success"
@@ -228,3 +227,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withErrorHandler(ContactData, axios));
+
+//if remember me is true put the email key in local storage using

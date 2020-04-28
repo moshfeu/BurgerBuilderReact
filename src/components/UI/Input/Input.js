@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./input.css";
+import Aux from "../../../hoc/Aux";
 
 const Input = props => {
   let inputElement = null;
@@ -46,7 +47,25 @@ const Input = props => {
         </select>
       );
       break;
-
+    case "input-email":
+      inputElement = (
+        <Aux>
+          <input
+            className={inputClasses.join(" ")}
+            {...props.elementConfig}
+            value={props.value}
+            onChange={props.changed}
+          />
+          <input
+            name="rememberMe"
+            checked={props.rememberMe}
+            onChange={props.checkboxChanged}
+            type="checkbox"
+          />
+          Remember email
+        </Aux>
+      );
+      break;
     default:
       inputElement = (
         <input

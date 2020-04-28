@@ -13,7 +13,7 @@ class Auth extends Component {
   state = {
     controls: {
       email: {
-        elementType: "input",
+        elementType: "input-email",
         elementConfig: {
           type: "email",
           placeholder: "Email Address"
@@ -41,7 +41,8 @@ class Auth extends Component {
         touched: false
       }
     },
-    isSignUp: true
+    isSignUp: true,
+    rememberMe: false
   };
 
   // in componentDidMount - if we reach this auth page whilst not building a burger redirect user to correct page.
@@ -50,7 +51,11 @@ class Auth extends Component {
     if (!this.props.buildingBurger && this.props.authRedirectPath !== "/") {
       this.props.onSetAuthRedirectPath();
     }
+    const rememberMe = localStorage.getItem('rememberMe') === 'true';
+    const user = rememberMe ? localStorage.getItem('user') : '';
+    this.setState({ user, rememberMe });
   }
+
 
   inputChangedHandler = (event, controlName) => {
     const updatedControls = {
@@ -79,11 +84,24 @@ class Auth extends Component {
 
   switchAuthModeHandler = () => {
     this.setState(prevState => {
-      console.log(prevState);
       return {
         isSignUp: !prevState.isSignUp
       };
     });
+  };
+
+  handleCheckboxChange = event => {
+    const rememberMe = !this.state.rememberMe; // true
+    this.setState(previousState => {
+      return {
+        rememberMe: !previousState.rememberMe
+      };
+    });
+    // setting local storage for email
+    const email = this.state.controls.email.value;
+
+    localStorage.setItem("rememberMe", rememberMe);
+    localStorage.setItem("email", rememberMe ? email : "");
   };
 
   render() {
@@ -106,8 +124,11 @@ class Auth extends Component {
         shouldValidate={formElement.config.validation}
         touched={formElement.config.touched}
         changed={event => this.inputChangedHandler(event, formElement.id)}
+        rememberMe={this.state.rememberMe}
+        checkboxChanged={this.handleCheckboxChange.bind(this)}
       />
     ));
+
     // const emailValue = this.state.controls.email.value;
     // console.log(emailValue);
 
